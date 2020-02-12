@@ -1,9 +1,11 @@
 # NodeJS_2019
 
-Homework #2 for NodeJS Course
+Homework #3 for NodeJS Course
 
-Deadline: Dec,22 2019
+Deadline: Jan,26 2020
 
-Command to run:
+Commands to run:
 
-npm run task
+npm run fill_db - creating 'users' table and filling by initial data
+
+npm run task - run server
