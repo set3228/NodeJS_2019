@@ -3,7 +3,7 @@ import { Op } from 'sequelize';
 import UserModel from '../models/User.Model';
 
 export default {
-    async Signup(registrationData) {
+    async signup(registrationData) {
         const user = {
             ...registrationData,
             id: uuid(),
@@ -14,7 +14,7 @@ export default {
         return userRecord;
     },
 
-    async UpdateProfile(userId, updatedData) {
+    async updateProfile(userId, updatedData) {
         let result = null;
         const userRecord = await UserModel.findByPk(userId);
         if (userRecord && !userRecord.isDeleted) {
@@ -30,7 +30,7 @@ export default {
         return result;
     },
 
-    async DeleteUser(userId) {
+    async deleteUser(userId) {
         let result = null;
         const userRecord = await UserModel.findByPk(userId);
         if (userRecord && !userRecord.isDeleted) {
@@ -48,7 +48,7 @@ export default {
         return result;
     },
 
-    async FindUserById(userId) {
+    async findUserById(userId) {
         let result = null;
         const userRecord = await UserModel.findByPk(userId);
         if (userRecord && !userRecord.isDeleted) {
@@ -59,7 +59,7 @@ export default {
         return result;
     },
 
-    async FindUsersByLogin(str, limit) {
+    async findUsersByLogin(str, limit) {
         const userRecords = await UserModel.findAll({
             where: {
                 login: {
