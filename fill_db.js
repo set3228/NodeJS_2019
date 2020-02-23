@@ -1,8 +1,9 @@
 import uuid from 'uuid/v4';
 import sequelize from './data-access/connectDB';
 import UserModel from './models/User.Model';
+import GroupModel from './models/Group.Model';
 
-const initialData = [
+const initialUserData = [
     {
         id: '3817fc6a-9886-4c30-8330-998b50401e09',
         isDeleted: false,
@@ -54,9 +55,31 @@ const initialData = [
     }
 ];
 
+const initialGroupData = [
+    {
+        id: uuid(),
+        name: 'admin',
+        permissions: ['READ', 'WRITE', 'DELETE', 'SHARE', 'UPLOAD_FILES']
+    },
+    {
+        id: uuid(),
+        name: 'employee',
+        permissions: ['READ', 'WRITE', 'SHARE', 'UPLOAD_FILES']
+    },
+    {
+        id: uuid(),
+        name: 'guest',
+        permissions: ['READ']
+    }
+];
+
 const fillDB = () => {
     UserModel.sync({ force: true })
-        .then(() => UserModel.bulkCreate(initialData))
+        .then(() => GroupModel.sync({ force: true }))
+        .then(() => UserModel.bulkCreate(initialUserData))
+        .then(() => console.log('Initial bunch of users has been created'))
+        .then(() => GroupModel.bulkCreate(initialGroupData))
+        .then(() => console.log('Initial bunch of groups has been created'))
         .then(() => sequelize.close())
         .then(() => console.log('Connection is closed'))
         .catch((err) => console.log('Something went wrong', err));

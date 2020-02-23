@@ -6,6 +6,6 @@ Deadline: Jan,26 2020
 
 Commands to run:
 
-npm run fill_db - creating 'users' table and filling by initial data
+npm run fill_db - creating 'users' and 'groups' tables and filling by initial data
 
 npm run task - run server

@@ -27,7 +27,7 @@ const schemaQuery = Joi.object().keys({
         .required()
 });
 
-export const validateBody = (req, res, next) => {
+const validateBody = (req, res, next) => {
     const { body } = req;
     const { error } = Joi.validate(body, schemaBody);
     if (error) {
@@ -37,7 +37,7 @@ export const validateBody = (req, res, next) => {
     next();
 };
 
-export const validateId = (req, res, next) => {
+const validateId = (req, res, next) => {
     const { params: { id } } = req;
     const { error } = Joi.validate(id, schemaId);
     if (error) {
@@ -47,7 +47,7 @@ export const validateId = (req, res, next) => {
     next();
 };
 
-export const validateQuery = (req, res, next) => {
+const validateQuery = (req, res, next) => {
     const { query } = req;
     const { error } = Joi.validate(query, schemaQuery);
     if (error) {
@@ -55,4 +55,10 @@ export const validateQuery = (req, res, next) => {
         next(error);
     }
     next();
+};
+
+export default {
+    validateBody,
+    validateId,
+    validateQuery
 };
