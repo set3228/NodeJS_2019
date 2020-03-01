@@ -54,7 +54,6 @@ export default {
         if (userRecord && !userRecord.isDeleted) {
             result = userRecord;
         }
-        console.log(userRecord);
 
         return result;
     },
