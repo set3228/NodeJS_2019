@@ -3,63 +3,104 @@ import sequelize from '../data-access/connectDB';
 import GroupModel from '../models/Group.Model';
 import UserModel from '../models/User.Model';
 
+const MODULE_NAME = 'Group.Service';
+
 export default {
     async createGroup(initialData) {
-        const group = {
-            ...initialData,
-            id: uuid()
-        };
+        try {
+            const group = { ...initialData, id: uuid() };
 
-        const groupRecord = await GroupModel.create(group);
-        return groupRecord;
+            const result = await sequelize.transaction(async (transaction) => {
+                return await GroupModel.create(group, { transaction });
+            });
+
+            console.log(MODULE_NAME, 'createGroup', 'transaction is completed');
+            return result || null;
+        } catch (error) {
+            console.log(MODULE_NAME, 'createGroup', 'transaction is failed', error);
+            return null;
+        }
     },
 
     async updateGroup(groupId, updatedData) {
-        let result = null;
-        const groupRecord = await GroupModel.findByPk(groupId);
-        if (groupRecord) {
-            await GroupModel.update(updatedData, {
-                where: {
-                    id: groupRecord.id
+        try {
+            const result = await sequelize.transaction(async (transaction) => {
+                const groupRecord = await GroupModel.findByPk(groupId, { transaction });
+                if (!groupRecord) {
+                    return null;
                 }
+
+                await GroupModel.update(updatedData, {
+                    where: {
+                        id: groupRecord.id
+                    },
+                    transaction
+                });
+
+                return await GroupModel.findByPk(groupId, { transaction });
             });
 
-            result = await GroupModel.findByPk(groupId);
+            console.log(MODULE_NAME, 'updateGroup', 'transaction is completed');
+            return result || null;
+        } catch (error) {
+            console.log(MODULE_NAME, 'updateGroup', 'transaction is failed', error);
+            return null;
         }
-
-        return result;
     },
 
     async deleteGroup(groupId) {
-        let result = null;
-        const groupRecord = await GroupModel.findByPk(groupId);
-        if (groupRecord) {
-            result = await GroupModel.destroy({
-                where: {
-                    id: groupRecord.id
+        try {
+            const result = await sequelize.transaction(async (transaction) => {
+                const groupRecord = await GroupModel.findByPk(groupId, { transaction });
+                if (groupRecord) {
+                    return await GroupModel.destroy({
+                        where: {
+                            id: groupRecord.id
+                        },
+                        transaction
+                    });
                 }
-            });
-        }
 
-        return result;
+                return null;
+            });
+
+            console.log(MODULE_NAME, 'deleteGroup', 'transaction is completed');
+            return result || null;
+        } catch (error) {
+            console.log(MODULE_NAME, 'deleteGroup', 'transaction is failed', error);
+            return null;
+        }
     },
 
     async findGroupById(groupId) {
-        let result = null;
-        const groupRecord = await GroupModel.findByPk(groupId);
-        if (groupRecord) {
-            result = groupRecord;
-        }
+        try {
+            const result = await sequelize.transaction(async (transaction) => {
+                return await GroupModel.findByPk(groupId, { transaction });
+            });
 
-        return result;
+            console.log(MODULE_NAME, 'findGroupById', 'transaction is completed');
+            return result || null;
+        } catch (error) {
+            console.log(MODULE_NAME, 'findGroupById', 'transaction is failed', error);
+            return null;
+        }
     },
 
     async getAllGroups() {
-        const groupRecords = await GroupModel.findAll({
-            order: ['name']
-        });
+        try {
+            const result = await sequelize.transaction(async (transaction) => {
+                return await GroupModel.findAll({
+                    order: ['name'],
+                    transaction
+                });
+            });
 
-        return groupRecords || [];
+            console.log(MODULE_NAME, 'getAllGroups', 'transaction is completed');
+            return result;
+        } catch (error) {
+            console.log(MODULE_NAME, 'getAllGroups', 'transaction is failed', error);
+            return [];
+        }
     },
 
     async addUsersToGroup(groupId, userIds) {
