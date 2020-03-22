@@ -19,10 +19,10 @@ export default {
             });
 
             console.log(MODULE_NAME, 'signup', 'transaction is completed');
-            return result || null;
+            return result;
         } catch (error) {
             console.log(MODULE_NAME, 'signup', 'transaction is failed', error);
-            return null;
+            throw error;
         }
     },
 
@@ -45,10 +45,10 @@ export default {
             });
 
             console.log(MODULE_NAME, 'updateProfile', 'transaction is completed');
-            return result || null;
+            return result;
         } catch (error) {
             console.log(MODULE_NAME, 'updateProfile', 'transaction is failed', error);
-            return null;
+            throw error;
         }
     },
 
@@ -73,10 +73,10 @@ export default {
             });
 
             console.log(MODULE_NAME, 'deleteUser', 'transaction is completed');
-            return result || null;
+            return result;
         } catch (error) {
             console.log(MODULE_NAME, 'deleteUser', 'transaction is failed', error);
-            return null;
+            throw error;
         }
     },
 
@@ -92,10 +92,10 @@ export default {
             });
 
             console.log(MODULE_NAME, 'findUserById', 'transaction is completed');
-            return result || null;
+            return result;
         } catch (error) {
             console.log(MODULE_NAME, 'findUserById', 'transaction is failed', error);
-            return null;
+            throw error;
         }
     },
 
@@ -120,7 +120,7 @@ export default {
             return result;
         } catch (error) {
             console.log(MODULE_NAME, 'findUsersByLogin', 'transaction is failed', error);
-            return [];
+            throw error;
         }
     }
 };

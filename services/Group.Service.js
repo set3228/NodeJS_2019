@@ -15,10 +15,10 @@ export default {
             });
 
             console.log(MODULE_NAME, 'createGroup', 'transaction is completed');
-            return result || null;
+            return result;
         } catch (error) {
             console.log(MODULE_NAME, 'createGroup', 'transaction is failed', error);
-            return null;
+            throw error;
         }
     },
 
@@ -41,10 +41,10 @@ export default {
             });
 
             console.log(MODULE_NAME, 'updateGroup', 'transaction is completed');
-            return result || null;
+            return result;
         } catch (error) {
             console.log(MODULE_NAME, 'updateGroup', 'transaction is failed', error);
-            return null;
+            throw error;
         }
     },
 
@@ -65,10 +65,10 @@ export default {
             });
 
             console.log(MODULE_NAME, 'deleteGroup', 'transaction is completed');
-            return result || null;
+            return result;
         } catch (error) {
             console.log(MODULE_NAME, 'deleteGroup', 'transaction is failed', error);
-            return null;
+            throw error;
         }
     },
 
@@ -82,7 +82,7 @@ export default {
             return result || null;
         } catch (error) {
             console.log(MODULE_NAME, 'findGroupById', 'transaction is failed', error);
-            return null;
+            throw error;
         }
     },
 
