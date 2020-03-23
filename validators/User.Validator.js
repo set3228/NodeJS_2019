@@ -31,8 +31,7 @@ const validateBody = (req, res, next) => {
     const { body } = req;
     const { error } = Joi.validate(body, schemaBody);
     if (error) {
-        // eslint-disable-next-line callback-return
-        next(error);
+        return next(error);
     }
     next();
 };
@@ -41,8 +40,7 @@ const validateId = (req, res, next) => {
     const { params: { id } } = req;
     const { error } = Joi.validate(id, schemaId);
     if (error) {
-        // eslint-disable-next-line callback-return
-        next(error);
+        return next(error);
     }
     next();
 };
@@ -51,8 +49,7 @@ const validateQuery = (req, res, next) => {
     const { query } = req;
     const { error } = Joi.validate(query, schemaQuery);
     if (error) {
-        // eslint-disable-next-line callback-return
-        next(error);
+        return next(error);
     }
     next();
 };
