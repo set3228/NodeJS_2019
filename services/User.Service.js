@@ -99,6 +99,31 @@ export default {
         }
     },
 
+    async findUserByLogin(userLogin) {
+        try {
+            const result = await sequelize.transaction(async (transaction) => {
+                const userRecord = await UserModel.findOne({
+                    where: {
+                        login: userLogin
+                    },
+                    transaction
+                });
+
+                if (!userRecord || userRecord.isDeleted) {
+                    return null;
+                }
+
+                return userRecord;
+            });
+
+            console.log(MODULE_NAME, 'findUserByLogin', 'transaction is completed');
+            return result;
+        } catch (error) {
+            console.log(MODULE_NAME, 'findUserByLogin', 'transaction is failed', error);
+            throw error;
+        }
+    },
+
     async findUsersByLogin(str, limit) {
         try {
             const result = await sequelize.transaction(async (transaction) => {

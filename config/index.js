@@ -9,7 +9,10 @@ const DB_CONFIG = {
     }
 };
 
+const JWT_SECRET_KEY = 'JWT_SECRET_KEY';
+
 export {
     PORT,
-    DB_CONFIG
+    DB_CONFIG,
+    JWT_SECRET_KEY
 };

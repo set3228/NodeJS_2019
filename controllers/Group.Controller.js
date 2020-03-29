@@ -11,7 +11,7 @@ const createGroup = async (req, res) => {
         res.status(201).json({ group });
     } catch (error) {
         Logger.warn(`${MODULE_NAME} createGroup with args: ${JSON.stringify(initialData)} was failed with error ${error}`);
-        res.status(404).json({ error });
+        res.status(503).json({ error });
     }
 };
 
@@ -28,7 +28,7 @@ const modifyGroup = async (req, res) => {
         }
     } catch (error) {
         Logger.warn(`${MODULE_NAME} modifyGroup with args: ${groupId}, ${JSON.stringify(updatedData)} was failed with error ${error}`);
-        res.status(404).json({ error });
+        res.status(503).json({ error });
     }
 };
 
@@ -44,7 +44,7 @@ const deleteGroup = async (req, res) => {
         }
     } catch (error) {
         Logger.warn(`${MODULE_NAME} deleteGroup with args: ${groupId} was failed with error ${error}`);
-        res.status(404).json({ error });
+        res.status(503).json({ error });
     }
 };
 
@@ -60,7 +60,7 @@ const getGroup = async (req, res) => {
         }
     } catch (error) {
         Logger.warn(`${MODULE_NAME} getGroup with args: ${groupId} was failed with error ${error}`);
-        res.status(404).json({ error });
+        res.status(503).json({ error });
     }
 };
 
@@ -75,7 +75,7 @@ const getAllGroups = async (req, res) => {
         }
     } catch (error) {
         Logger.warn(`${MODULE_NAME} getAllGroups was failed with error ${error}`);
-        res.status(404).json({ error });
+        res.status(503).json({ error });
     }
 };
 

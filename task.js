@@ -1,7 +1,9 @@
 import express from 'express';
+import cors from 'cors';
 import Logger from './utils/Logger';
 import { PORT } from './config';
 import sequelizeLoader from './loaders/Sequelize.Loader';
+import AuthController from './controllers/Authorization.Controller';
 import ErrorController from './controllers/Error.Controller';
 import UserRouter from './routes/User.Router';
 import GroupRouter from './routes/Group.Router';
@@ -9,6 +11,7 @@ import GroupRouter from './routes/Group.Router';
 const startServer = async () => {
     await sequelizeLoader();
     const app = express();
+    app.use(cors());
     app.use(express.json());
 
     app.use((req, res, next) => {
@@ -18,6 +21,8 @@ const startServer = async () => {
     });
 
     // initialize routes
+    app.use(AuthController.proxyRequests);
+    app.post('/login/', AuthController.loginUser);
     app.use('/users/', UserRouter);
     app.use('/groups/', GroupRouter);
 
