@@ -10,7 +10,7 @@ const createUser = async (req, res) => {
         res.status(201).json({ user });
     } catch (error) {
         Logger.warn(`${MODULE_NAME} createUser with args: ${JSON.stringify(signupData)} was failed with error ${error}`);
-        res.status(404).json({ error });
+        res.status(503).json({ error });
     }
 };
 
@@ -27,7 +27,7 @@ const modifyUser = async (req, res) => {
         }
     } catch (error) {
         Logger.warn(`${MODULE_NAME} modifyUser with args: ${userId}, ${JSON.stringify(updatedData)} was failed with error ${error}`);
-        res.status(404).json({ error });
+        res.status(503).json({ error });
     }
 };
 
@@ -43,7 +43,7 @@ const deleteUser = async (req, res) => {
         }
     } catch (error) {
         Logger.warn(`${MODULE_NAME} deleteUser with args: ${userId} was failed with error ${error}`);
-        res.status(404).json({ error });
+        res.status(503).json({ error });
     }
 };
 
@@ -59,7 +59,7 @@ const getUser = async (req, res) => {
         }
     } catch (error) {
         Logger.warn(`${MODULE_NAME} getUser with args: ${userId} was failed with error ${error}`);
-        res.status(404).json({ error });
+        res.status(503).json({ error });
     }
 };
 
@@ -75,7 +75,7 @@ const getAutoSuggestUsers = async (req, res) => {
         }
     } catch (error) {
         Logger.warn(`${MODULE_NAME} getAutoSuggestUsers with args: ${loginSubstring}, ${limit} was failed with error ${error}`);
-        res.status(404).json({ error });
+        res.status(503).json({ error });
     }
 };
 
